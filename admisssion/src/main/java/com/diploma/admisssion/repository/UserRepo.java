@@ -8,5 +8,11 @@ import com.diploma.admisssion.model.User;
 public interface UserRepo extends JpaRepository<User, Integer>{
 
 	User findByEmail(String email);
+	
+	User findByEmailAndPwd(String email, String pwd);
+	
+	
+	
+	
 
 }
