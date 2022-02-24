@@ -11,5 +11,9 @@ public interface UserService {
     public List<User> getAllUsers();
     
     public boolean checkIfUserExist(String email);
+    
+    public String logUser(String email, String password);
+    
+    public boolean isValid(String email, String password);
 
 }

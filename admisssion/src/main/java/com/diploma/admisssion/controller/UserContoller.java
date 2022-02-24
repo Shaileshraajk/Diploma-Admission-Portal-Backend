@@ -30,6 +30,19 @@ public class UserContoller {
 		return "User already exits";
 	}
 	
+	@PostMapping("/login")
+	public String login(@RequestBody User user) {
+		if(userservice.isValid(user.getEmail(), user.getPwd()))
+		{
+			if(userservice.logUser(user.getEmail(), user.getPwd()).equals("Admin"))
+			{
+				return "Admin Page";
+			}
+			return "User Page";
+		}
+		return "Invalid Username or Password";
+	}
+	
 	@GetMapping("/getAll")
 	public List<User> list(){
         return userservice.getAllUsers();
