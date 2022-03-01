@@ -35,19 +35,6 @@ public class UserContoller {
 		return "User already exits";
 	}
 	
-//	@PostMapping("/login")
-//	public String login(@RequestBody User user) {
-//		if(userservice.isValid(user.getEmail(), user.getPwd()))
-//		{
-//			if(userservice.logUser(user.getEmail(), user.getPwd()).equals("Admin"))
-//			{
-//				return "Admin Page";
-//			}
-//			return "User Page";
-//		}
-//		return "Invalid Username or Password";
-//	}
-	
 	@PostMapping("/loginuser")
 	@ApiOperation("Authenticated and Authorized Login")
 	public ResponseEntity<User> loginuser(@RequestBody User user) {
