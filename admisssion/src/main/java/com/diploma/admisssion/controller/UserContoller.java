@@ -26,7 +26,7 @@ public class UserContoller {
 	private UserService userservice;
 	
 	@PostMapping("/add")
-	@ApiOperation("Used to add users to the Portal")
+	@ApiOperation("Add users to the Portal")
 	public String add(@RequestBody User user) {
 		if(userservice.saveUser(user)!=null)
 		{
@@ -49,7 +49,7 @@ public class UserContoller {
 //	}
 	
 	@PostMapping("/loginuser")
-	@ApiOperation("Used for authenticated login")
+	@ApiOperation("Authenticated and Authorized Login")
 	public ResponseEntity<User> loginuser(@RequestBody User user) {
 		if(userservice.isValid(user.getEmail(), user.getPwd()))
 		{
@@ -62,7 +62,7 @@ public class UserContoller {
 	}
 	
 	@GetMapping("/getAll")
-	@ApiOperation("Used to fetch all the records of the User")
+	@ApiOperation("Fetch all the records of users")
 	public List<User> list(){
         return userservice.getAllUsers();
     }
