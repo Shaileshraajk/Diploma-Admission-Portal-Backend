@@ -41,23 +41,22 @@ public class UserServiceImpl implements UserService{
         return userRepo.findByEmail(email) !=null ? true : false;
     }
 
-	@Override
-	public String logUser(String email, String password) {
-		Base64.Encoder encoder = Base64.getEncoder();
-		String pwd = encoder.encodeToString(password.getBytes());
-		User ud = userRepo.findByEmailAndPwd(email, pwd);
-		if(ud!=null)
-		{
-			if(ud.getUser_type().equals("1"))
-			{
-				System.out.println("Admin");
-				return "Admin";
-			}
-			System.out.println(ud.getUser_type());
-			
-		}
-		return "User";
-	}
+//	public String logUser(String email, String password) {
+//		Base64.Encoder encoder = Base64.getEncoder();
+//		String pwd = encoder.encodeToString(password.getBytes());
+//		User ud = userRepo.findByEmailAndPwd(email, pwd);
+//		if(ud!=null)
+//		{
+//			if(ud.getUser_type().equals("1"))
+//			{
+//				System.out.println("Admin");
+//				return "Admin";
+//			}
+//			System.out.println(ud.getUser_type());
+//			
+//		}
+//		return "User";
+//	}
 
 	@Override
 	public boolean isValid(String email, String password) {
@@ -72,11 +71,23 @@ public class UserServiceImpl implements UserService{
 
 	private boolean validemailandpwd(String email, String pwd) {
 		
-		if(userRepo.findByEmailAndPwd(email, pwd)!=null)
+		if(userRepo.findByEmailAndPwd(email, pwd).size()!=0)
 		{
 			return true;
 		}
 		return false;
+	}
+
+	@Override
+	public User UserDetails(String email, String password) {
+		Base64.Encoder encoder = Base64.getEncoder();
+		String pwd = encoder.encodeToString(password.getBytes());
+		if(userRepo.findByEmailAndPwd(email, pwd).size()!=0)
+		{
+			return userRepo.findByEmailAndPwd(email, pwd).get(0);
+		}
+		return null;
+	
 	}
 
 	

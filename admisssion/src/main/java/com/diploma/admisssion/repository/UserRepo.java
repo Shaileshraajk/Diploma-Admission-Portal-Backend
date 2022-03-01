@@ -1,5 +1,7 @@
 package com.diploma.admisssion.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 import com.diploma.admisssion.model.User;
@@ -9,7 +11,7 @@ public interface UserRepo extends JpaRepository<User, Integer>{
 
 	User findByEmail(String email);
 	
-	User findByEmailAndPwd(String email, String pwd);
+	List<User> findByEmailAndPwd(String email, String pwd);
 	
 	
 	
