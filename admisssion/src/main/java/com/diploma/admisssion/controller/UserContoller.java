@@ -10,9 +10,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.diploma.admisssion.model.User;
 import com.diploma.admisssion.service.UserService;
 
+import io.swagger.annotations.ApiOperation;
+
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 @RestController
 @RequestMapping("/user")
@@ -22,6 +26,7 @@ public class UserContoller {
 	private UserService userservice;
 	
 	@PostMapping("/add")
+	@ApiOperation("Used to add users to the Portal")
 	public String add(@RequestBody User user) {
 		if(userservice.saveUser(user)!=null)
 		{
@@ -30,20 +35,34 @@ public class UserContoller {
 		return "User already exits";
 	}
 	
-	@PostMapping("/login")
-	public String login(@RequestBody User user) {
+//	@PostMapping("/login")
+//	public String login(@RequestBody User user) {
+//		if(userservice.isValid(user.getEmail(), user.getPwd()))
+//		{
+//			if(userservice.logUser(user.getEmail(), user.getPwd()).equals("Admin"))
+//			{
+//				return "Admin Page";
+//			}
+//			return "User Page";
+//		}
+//		return "Invalid Username or Password";
+//	}
+	
+	@PostMapping("/loginuser")
+	@ApiOperation("Used for authenticated login")
+	public ResponseEntity<User> loginuser(@RequestBody User user) {
 		if(userservice.isValid(user.getEmail(), user.getPwd()))
 		{
-			if(userservice.logUser(user.getEmail(), user.getPwd()).equals("Admin"))
+			if(userservice.UserDetails(user.getEmail(),user.getPwd())!=null)
 			{
-				return "Admin Page";
+				return new ResponseEntity<User>(userservice.UserDetails(user.getEmail(),user.getPwd()),HttpStatus.OK);
 			}
-			return "User Page";
-		}
-		return "Invalid Username or Password";
+		}		
+		return new ResponseEntity<User>(HttpStatus.BAD_REQUEST);
 	}
 	
 	@GetMapping("/getAll")
+	@ApiOperation("Used to fetch all the records of the User")
 	public List<User> list(){
         return userservice.getAllUsers();
     }

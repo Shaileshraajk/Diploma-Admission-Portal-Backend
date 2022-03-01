@@ -12,7 +12,7 @@ public interface UserService {
     
     public boolean checkIfUserExist(String email);
     
-    public String logUser(String email, String password);
+    public User UserDetails(String email, String password);
     
     public boolean isValid(String email, String password);
 
